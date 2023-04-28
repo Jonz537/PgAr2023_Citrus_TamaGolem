@@ -3,22 +3,22 @@ import java.util.LinkedList;
 
 public class TamaGolem {
 
-    public static int PEBBLE_PER_GOLEM = (int) Math.ceil((Game.NUM_ELEMENT + 1) / 3.0) + 1;
-    int healthPoint;
-    LinkedList<Integer> pebble = new LinkedList<>();
-    Iterator<Integer> pebbleIt;
+    public static int GEMS_PER_GOLEM = (int) Math.ceil((Game.NUM_ELEMENT + 1) / 3.0) + 1;
+    private int healthPoint;
+    LinkedList<Integer> gems = new LinkedList<>();
+    Iterator<Integer> gemIterator;
 
     public TamaGolem() {
         this.healthPoint = Universe.getSupPower();
-        pebbleIt = pebble.iterator();
+        gemIterator = null;
     }
 
-    public Integer currentPebble() {
+    public Integer currentGem() {
 
-        if(!pebbleIt.hasNext()) {
-            pebbleIt = pebble.iterator();
+        if(!gemIterator.hasNext()) {
+            gemIterator = gems.iterator();
         }
 
-        return pebbleIt.next();
+        return gemIterator.next();
     }
 }

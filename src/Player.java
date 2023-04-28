@@ -4,9 +4,14 @@ public class Player {
 
     private String name;
     private int numberGolem = Game.INITIAL_NUM_GOLEM;
+    private TamaGolem tamaGolem = new TamaGolem();
 
-    public void summon(TamaGolem tamaGolem, LinkedList<Integer> pebbleChosen) {
-        tamaGolem.pebble = pebbleChosen;
+    public Player(String name) {
+        this.name = name;
+    }
+
+    public void setTamaGolem(TamaGolem tamaGolem) {
+       this.tamaGolem = tamaGolem;
     }
 
     public int getNumberGolem() {
@@ -15,5 +20,13 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public TamaGolem getTamaGolem() {
+        return tamaGolem;
+    }
+
+    public void decreaseGolem() {
+        this.numberGolem --;
     }
 }
