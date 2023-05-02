@@ -21,21 +21,24 @@ public class Game {
         summon(player1);
         summon(player2);
 
+        System.out.println(player1.getTamaGolem().toString());
+        System.out.println(player2.getTamaGolem().toString());
+
+
         while (player1.getNumberGolem() != 0 || player2.getNumberGolem() != 0) {
 
-            //TODO this
-            int damage = Universe.calcDamage(player1.getTamaGolem().currentGem(), player2.getTamaGolem().currentGem());
+            int damage = Universe.calcDamage(player1.getTamaGolem(), player2.getTamaGolem());
+
             if(damage < 0) {
-                player1.getTamaGolem().setG -= Math.abs(damage);
+                player1.getTamaGolem().setHealthPoint(player1.getNumberGolem() - Math.abs(damage));
             } else if (damage > 0) {
-                player2.getTamaGolem().
+                player2.getTamaGolem().setHealthPoint(player2.getNumberGolem() - Math.abs(damage));
             }
 
-
-            if(player1.getTamaGolem().healthPoint <= 0) {
+            if(player1.getTamaGolem().getHealthPoint() <= 0) {
                 summon(player1);
                 player1.decreaseGolem();
-            } else if(player2.getTamaGolem().healthPoint <= 0) {
+            } else if(player2.getTamaGolem().getHealthPoint() <= 0) {
                 summon(player2);
                 player2.decreaseGolem();
             }
@@ -54,11 +57,12 @@ public class Game {
         for (int i = 0; i < TamaGolem.GEMS_PER_GOLEM; i++) {
 
             String gem;
+
             do {
                 gem = UserInterface.choseGem();
             } while(gems.get(gem) > 0);
 
-            tamaGolem.gems.add(0, gems.get(gem));
+            tamaGolem.gems.add(i, gems.get(gem));
         }
 
         player.setTamaGolem(tamaGolem);

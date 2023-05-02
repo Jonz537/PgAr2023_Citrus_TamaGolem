@@ -10,7 +10,7 @@ public class UserInterface {
         Player first, second;
 
         first = new Player(InputInterface.readNotEmptyString("Enter first player's name"));
-        second = new Player(InputInterface.readNotEmptyString("Enter first player's name"));
+        second = new Player(InputInterface.readNotEmptyString("Enter second player's name"));
 
         game = new Game(first, second);
 
