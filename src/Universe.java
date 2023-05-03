@@ -1,45 +1,69 @@
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class Universe {
 
-    final static public String[] elements = new String[]{
-            "Calabrium", "Mike Oxlong", "Lester Mo", "Nick Gah", "Gabe Itch",
-//             "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
-    };
-    static private int balance[][] = new int[elements.length][elements.length];
+    final static public ArrayList<String> elements = new ArrayList<>(List.of("Calabrium", "Mike Oxlong", "Mo Lester", "Nick Gah", "Gabe Itch"
+//            "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
+    ));
+
+    static private int equilibrium[][] = new int[elements.size()][elements.size()]; //SANENESS BALLAST EQUIPOISE
     static private int maxDamage = 0;
 
     public static void main(String[] args) {
-        
-            for (int i = 0; i < 1; i++) {
-                generateBalance();
-                printBalance();
-            }
+        generateEquilibrium();
+        printEquilibriumTable();
+        System.out.println();
+        printEquilibriumList();
     }
 
-    public static void check() {
-        int counter = 0, sum = 0;
-        for (int i = 0; i < balance.length; i++) {
-            for (int j = 0; j < balance.length; j++) {
-                if (balance[i][j] == 0) {
-                    counter++;
+    public static int getMaxDamage() {
+        return maxDamage;
+    }
+
+    public static void generateEquilibrium() {
+        Random random = new Random();
+
+        for (int i = 0; i < equilibrium.length - 1; i++) {
+
+            for (int j = i + 1; j < equilibrium.length - 1; j++) {
+
+                // genera casuale riga per riga
+                equilibrium[i][j] = random.nextInt(1, 5) * randomNegative();
+                equilibrium[j][i] = -equilibrium[i][j];
+
+                // controllo valore di danno massimo per la vita del golem
+                if (Math.abs(equilibrium[i][j]) > maxDamage) {
+                    maxDamage = Math.abs(equilibrium[i][j]);
                 }
-                sum += balance[i][j];
             }
-            if (sum != 0) {
-                System.out.println("ERROR");
-                printBalance();
+
+            // calcola la somma della colonna per generare l'ultimo numero
+            int colSum = sumNegColumn(i);
+
+            if (colSum == 0 && i != equilibrium.length - 2) {
+                if (equilibrium[equilibrium.length - 2][i] != 1) {
+                    equilibrium[equilibrium.length - 2][i] = equilibrium[equilibrium.length - 2][i] - 1;
+                    equilibrium[equilibrium.length - 1][i] = 1;
+                    equilibrium[i][equilibrium.length - 2] = -equilibrium[equilibrium.length - 2][i];
+                    equilibrium[i][equilibrium.length - 1] = -1;
+                } else {
+                    equilibrium[equilibrium.length - 2][i] = equilibrium[equilibrium.length - 2][i] + 1;
+                    equilibrium[equilibrium.length - 1][i] = -1;
+                    equilibrium[i][equilibrium.length - 2] = -equilibrium[equilibrium.length - 2][i];
+                    equilibrium[i][equilibrium.length - 1] = 1;
+                }
+            } else if (colSum == 0) {
+                // caso particolare della modifica della penultima colonna, si rigenera il numero per
+                // non generare una reazione a cascata
+                i = i - 2;
+            } else {
+                equilibrium[equilibrium.length - 1][i] = colSum;
+                equilibrium[i][equilibrium.length - 1] = -colSum;
             }
         }
-
-        if (counter != balance.length) {
-            System.out.println("ERROR");
-            printBalance();
-        }
-
     }
 
     public static int randomNegative() {
@@ -51,95 +75,88 @@ public class Universe {
         return -1;
     }
 
-    public static void generateBalance() {
-        Random random = new Random();
-
-        for (int i = 0; i < balance.length - 1; i++) {
-
-            for (int j = i + 1; j < balance.length - 1; j++) {
-                balance[i][j] = random.nextInt(1, 5) * randomNegative();
-                balance[j][i] = -balance[i][j];
-                if (Math.abs(balance[i][j]) > maxDamage) {
-                    maxDamage = Math.abs(balance[i][j]);
-                }
-            }
-
-            int colSum = sumNegColumn(i);
-            if (colSum == 0 && i != balance.length - 2) {
-                if (balance[balance.length - 2][i] != 1) {
-                    balance[balance.length - 2][i] = balance[balance.length - 2][i] - 1;
-                    balance[balance.length - 1][i] = 1;
-                    balance[i][balance.length - 2] = -balance[balance.length - 2][i];
-                    balance[i][balance.length - 1] = -1;
-                } else {
-                    balance[balance.length - 2][i] = balance[balance.length - 2][i] + 1;
-                    balance[balance.length - 1][i] = -1;
-                    balance[i][balance.length - 2] = -balance[balance.length - 2][i];
-                    balance[i][balance.length - 1] = 1;
-                }
-            } else if (colSum == 0) {
-                i = i - 2;
-            } else {
-                balance[balance.length - 1][i] = colSum;
-                balance[i][balance.length - 1] = -colSum;
-            }
-        }
-    }
-
     public static int sumNegColumn(int index) {
         int tot = 0;
-        for (int i = 0; i < balance.length - 1; i++) {
-            tot += balance[i][index];
+        for (int i = 0; i < equilibrium.length - 1; i++) {
+            tot += equilibrium[i][index];
         }
         return -tot;
     }
 
-
-    public static void printBalance() {
-        for (int i = 0; i < balance.length; i++) {
-
-            for (int j = 0; j < balance.length * 5; j++) {
-                if(j % 5 == 0){
-                    System.out.print("+");
-                } else {
-                    System.out.print("-");
-                }
-            }
-
-            System.out.print("+ \n");
-
-            for (int j = 0; j < balance.length; j++) {
-                System.out.print(String.format( "| %2d ", balance[i][j]));
-            }
-            System.out.print("| \n");
-        }
-
-        for (int j = 0; j < balance.length * 5; j++) {
-            if(j % 5 == 0){
-                System.out.print("+");
-            } else {
-                System.out.print("-");
-            }
-        }
-
-        System.out.print("+");
-    }
-
-    public static int getMaxDamage() {
-        return maxDamage;
-    }
-
-// damage = 0 --> equal gem
-// damage < 0 --> first better
-// damage > 0 --> second better
     public static int calcDamage(TamaGolem golem1, TamaGolem golem2) {
+        // damage = 0 --> equal gem
+        // damage < 0 --> first better
+        // damage > 0 --> second better
 
         int gem1 = golem1.currentGem(), gem2 = golem2.currentGem();
 
         if (gem1 == gem2) {
             return 0;
         } else {
-            return balance[gem1 - 1][gem2 - 1];
+            return equilibrium[gem1][gem2];
         }
+    }
+
+    public static void check() {
+        int counter = 0, sum = 0;
+        for (int i = 0; i < equilibrium.length; i++) {
+            for (int j = 0; j < equilibrium.length; j++) {
+                if (equilibrium[i][j] == 0) {
+                    counter++;
+                }
+                sum += equilibrium[i][j];
+            }
+            if (sum != 0) {
+                System.out.println("ERROR");
+                printEquilibriumTable();
+            }
+        }
+
+        if (counter != equilibrium.length) {
+            System.out.println("ERROR");
+            printEquilibriumTable();
+        }
+    }
+
+    public static void printEquilibriumTable() {
+
+        for (int i = 0; i < equilibrium.length; i++) {
+
+            for (int j = 0; j < equilibrium.length * 5 + 14; j++) {
+                System.out.print("-");
+            }
+
+            System.out.println("+");
+
+            System.out.print(String.format("%12s  ", elements.get(i)));
+
+            for (int j = 0; j < equilibrium.length; j++) {
+                if (equilibrium[i][j] > 0) {
+                    System.out.print(String.format( "| %2d ", equilibrium[i][j]));
+                } else {
+                    System.out.print("| // ");
+                }
+            }
+            System.out.println("|");
+        }
+
+        for (int j = 0; j < equilibrium.length * 5 + 14; j++) {
+            System.out.print("-");
+        }
+
+        System.out.print("+");
+    }
+
+    public static void printEquilibriumList() {
+
+        for (int i = 0; i < equilibrium.length; i++) {
+            System.out.println(elements.get(i));
+            for (int j = 0; j < equilibrium.length; j++) {
+                if (equilibrium[i][j] > 0) {
+                    System.out.println("\t-" + elements.get(j) + ": " + equilibrium[i][j]);
+                }
+            }
+        }
+
     }
 }
