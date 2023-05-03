@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class UserInterface {
 
-    private static MenuManager choseGems = new MenuManager("Choose your gem", Universe.elements.toArray(String[]::new));
+//    private static MenuManager choseGems = new MenuManager("Choose your gem", Universe.elements.toArray(String[]::new));
             //("Choose your gem");
 
     public static void enterPlayersData(Game game) {
@@ -19,9 +19,9 @@ public class UserInterface {
         game.finale();
     }
 
-    public static String chooseGem(HashMap<String, Integer> gems) {
-        return choseGems.chooseStringNoExit();
-    }
+//    public static String chooseGem(HashMap<String, Integer> gems) {
+//        return choseGems.chooseStringNoExit();
+//    }
 
     public static String menuChooseGem(HashMap<String, Integer> choices) {
 

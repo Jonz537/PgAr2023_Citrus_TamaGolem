@@ -1,7 +1,4 @@
-import unibs.PrintUtils;
-
 import java.util.HashMap;
-import java.util.Map;
 
 public class Game {
 
@@ -33,25 +30,24 @@ public class Game {
 
             if (damage < 0) {
                 player1.getTamaGolem().receiveDamage(damage);
-                System.out.println(player1.getName() + "'s tamagolem inflicted " + (-damage) + " damage to the " "'s tamagolem");
+                System.out.println(player2.getName() + "'s tamagolem inflicted " + (-damage) + " damage to the " + player1.getName() + "'s tamagolem");
             } else if (damage > 0) {
                 player2.getTamaGolem().receiveDamage(damage);
-                System.out.println("first player's tamagolem inflicted " + damage + " damage to the second player's tamagolem");
+                System.out.println(player1.getName() + "'s tamagolem inflicted " + damage + " damage to the " + player2.getName() + "'s tamagolem");
             }
 
             if (player1.getTamaGolem().getHealthPoint() <= 0) {
-                System.out.println("first player's tamagolem is dead");
+                System.out.println(player1.getName() + "'s tamagolem is dead " + player1.getNumberGolem());
                 player1.decreaseGolem();
 
-                if(player1.getNumberGolem() != 0) {
+                if(player1.getNumberGolem() > 0) {
                     summon(player1);
                 }
-
             } else if (player2.getTamaGolem().getHealthPoint() <= 0) {
-                System.out.println(player2.getName() + " tamagolem is dead");
+                System.out.println(player2.getName() + "'s tamagolem is dead " + player2.getNumberGolem());
                 player2.decreaseGolem();
 
-                if(player2.getNumberGolem() != 0) {
+                if(player2.getNumberGolem() > 0) {
                     summon(player2);
                 }
             }
@@ -71,12 +67,10 @@ public class Game {
         int winner = fight();
 
         if (winner == 1) {
-            System.out.println("player 2 wins");
+            System.out.println(player2.getName() + " wins");
         } else if (winner == 2) {
-            System.out.println("player 1 wins");
+            System.out.println(player1.getName() + " wins");
         }
-
-        Universe.printEquilibriumList();
     }
 
     private void initializeHashMap() {
@@ -86,6 +80,7 @@ public class Game {
     }
 
     /**
+     *
      * @param player
      */
     private void summon(Player player) {
@@ -109,5 +104,4 @@ public class Game {
 
         player.setTamaGolem(tamaGolem);
     }
-
 }

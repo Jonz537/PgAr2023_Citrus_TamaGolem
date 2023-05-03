@@ -43,6 +43,10 @@ public class Universe {
             // calcola la somma della colonna per generare l'ultimo numero
             int colSum = sumNegColumn(i);
 
+            if (colSum > maxDamage) {
+                maxDamage = colSum;
+            }
+
             if (colSum == 0 && i != equilibrium.length - 2) {
                 if (equilibrium[equilibrium.length - 2][i] != 1) {
                     equilibrium[equilibrium.length - 2][i] = equilibrium[equilibrium.length - 2][i] - 1;
@@ -85,8 +89,8 @@ public class Universe {
 
     public static int calcDamage(TamaGolem golem1, TamaGolem golem2) {
         // damage = 0 --> equal gem
-        // damage < 0 --> first better
-        // damage > 0 --> second better
+        // damage < 0 --> second better
+        // damage > 0 --> first better
 
         int gem1 = golem1.currentGem(), gem2 = golem2.currentGem();
 
@@ -119,15 +123,12 @@ public class Universe {
     }
 
     public static void printEquilibriumTable() {
-
         for (int i = 0; i < equilibrium.length; i++) {
-
             for (int j = 0; j < equilibrium.length * 5 + 14; j++) {
                 System.out.print("-");
             }
 
             System.out.println("+");
-
             System.out.print(String.format("%12s  ", elements.get(i)));
 
             for (int j = 0; j < equilibrium.length; j++) {
@@ -148,7 +149,6 @@ public class Universe {
     }
 
     public static void printEquilibriumList() {
-
         for (int i = 0; i < equilibrium.length; i++) {
             System.out.println(elements.get(i));
             for (int j = 0; j < equilibrium.length; j++) {
@@ -157,6 +157,5 @@ public class Universe {
                 }
             }
         }
-
     }
 }
