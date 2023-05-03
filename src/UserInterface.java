@@ -25,7 +25,7 @@ public class UserInterface {
 
     public static String menuChooseGem(HashMap<String, Integer> choices) {
 
-        System.out.println("\n Choose gem:");
+        System.out.println("\nChoose gem:");
 
         for (int i = 0; i < choices.size(); i++) {
             System.out.println(i + 1 + " - " + Universe.elements.get(i) + " (" + choices.get(Universe.elements.get(i)) + ")");

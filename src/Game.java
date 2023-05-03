@@ -21,10 +21,11 @@ public class Game {
         summon(player1);
         summon(player2);
 
-        System.out.println(player1.getTamaGolem().toString());
-        System.out.println(player2.getTamaGolem().toString());
+        System.out.println(player1.getName() + " " + player1.getTamaGolem().toString());
+        System.out.println(player2.getName() + " " + player2.getTamaGolem().toString());
 
-        while (player1.getNumberGolem() != 0 || player2.getNumberGolem() != 0) {
+        while (player1.getNumberGolem() > 0 && player2.getNumberGolem() > 0) {
+            //System.out.println("N golem " + player1.getName() + ": " + player1.getNumberGolem() + " \n N golem " + player2.getName() +": " + player2.getNumberGolem());
 
             int damage = Universe.calcDamage(player1.getTamaGolem(), player2.getTamaGolem());
 
@@ -38,17 +39,17 @@ public class Game {
 
             if (player1.getTamaGolem().getHealthPoint() <= 0) {
                 System.out.println(player1.getName() + "'s tamagolem is dead " + player1.getNumberGolem());
-                player1.decreaseGolem();
 
                 if(player1.getNumberGolem() > 0) {
                     summon(player1);
+                    player1.decreaseGolem();
                 }
             } else if (player2.getTamaGolem().getHealthPoint() <= 0) {
                 System.out.println(player2.getName() + "'s tamagolem is dead " + player2.getNumberGolem());
-                player2.decreaseGolem();
 
                 if(player2.getNumberGolem() > 0) {
                     summon(player2);
+                    player2.decreaseGolem();
                 }
             }
         }
@@ -94,7 +95,7 @@ public class Game {
                 gemKey = UserInterface.menuChooseGem(gems);
 
                 if(gems.get(gemKey) <= 0) {
-                    System.out.println("Brutto frocio svegliati fuori mongoloide di merda ;)");
+                    System.out.println("There are no more gems of " + gemKey);
                 }
             } while(gems.get(gemKey) <= 0);
 

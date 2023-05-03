@@ -60,6 +60,6 @@ public class TamaGolem {
     }
 
     public String toString() {
-        return "Golem: " + healthPoint + " hp, " + currentGem() + " " + currentGem() + " " + currentGem();
+        return "Golem: " + healthPoint + " hp, " + Universe.elements.get(currentGem()) + ", " + Universe.elements.get(currentGem()) + ", " + Universe.elements.get(currentGem());
     }
 }
