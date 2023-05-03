@@ -2,7 +2,7 @@ import unibs.MenuManager;
 
 public class Main {
 
-    private final static MenuManager menuManager = new MenuManager("What do you wanna do?", new String[]{"FIGHT", "exit"});
+    private final static MenuManager menuManager = new MenuManager("What do you wanna do?", new String[]{"FIGHT"});
 
     public static void main(String[] args) {
 

@@ -5,7 +5,7 @@ public class Game {
     public static int NUM_ELEMENT = 5;
     public static int INITIAL_NUM_GOLEM = (int) Math.ceil(((Game.NUM_ELEMENT - 1) * (Game.NUM_ELEMENT - 2)) / (2.0 * TamaGolem.GEMS_PER_GOLEM));
     public static int TOT_GEM_BAG = (int) Math.ceil((2.0 * INITIAL_NUM_GOLEM * TamaGolem.GEMS_PER_GOLEM) / NUM_ELEMENT) * NUM_ELEMENT;
-    private HashMap<String, Integer> gems;
+    private HashMap<String, Integer> gems = new HashMap<>();
     Player player1;
     Player player2;
 

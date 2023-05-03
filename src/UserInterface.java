@@ -17,7 +17,7 @@ public class UserInterface {
     }
 
     public static String choseGem() {
-        return choseGems.chooseString();
+        return choseGems.chooseStringNoExit();
     }
 
 }

@@ -6,15 +6,41 @@ import java.util.Set;
 public class Universe {
 
     final static public String[] elements = new String[]{
-            "Calabrium", "Mike Oxlong", "Lester Mo", "Nick Gah", // "Gabe Itch",
-            // "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
+            "Calabrium", "Mike Oxlong", "Lester Mo", "Nick Gah", "Gabe Itch",
+//             "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
     };
-    static private int balance[][] = new int[elements.length][elements.length];
+//    static private int balance[][] = new int[elements.length][elements.length];
+    static private int balance[][] = new int[10000][10000];
     static private Set<Integer> powerSet = new HashSet<>();
 
     public static void main(String[] args) {
-            generateBalance();
+        
+            for (int i = 0; i < 1; i++) {
+                generateBalance();
+//                check();
+            }
+    }
+
+    public static void check() {
+        int counter = 0, sum = 0;
+        for (int i = 0; i < balance.length; i++) {
+            for (int j = 0; j < balance.length; j++) {
+                if (balance[i][j] == 0) {
+                    counter++;
+                }
+                sum += balance[i][j];
+            }
+            if (sum != 0) {
+                System.out.println("ERROR");
+                printBalance();
+            }
+        }
+
+        if (counter != balance.length) {
+            System.out.println("ERROR");
             printBalance();
+        }
+
     }
 
     public static int randomNegative() {
@@ -28,31 +54,59 @@ public class Universe {
 
     public static void generateBalance() {
         Random random = new Random();
-        boolean casoLimiteTiOdioAAAA = false;
-        do {
-            for (int i = 0; i < balance.length - 1; i++) {
-                for (int j = 0; j < i; j++) {
-                    balance[i][j] = random.nextInt(1, 5) * randomNegative();
-                    balance[j][i] = -balance[i][j];
-                    powerSet.add(Math.abs(balance[i][j]));
-                }
+//        boolean casoLimiteTiOdioAAAA = false;
+//        do {
+//            casoLimiteTiOdioAAAA = false;
+//            for (int i = 0; i < balance.length - 1; i++) {
+//                for (int j = 0; j < i; j++) {
+//                    balance[i][j] = random.nextInt(1, 5) * randomNegative();
+//                    balance[j][i] = -balance[i][j];
+//                    powerSet.add(Math.abs(balance[i][j]));
+//                }
+//            }
+//
+//            for (int i = 0; i < balance.length - 1; i++) {
+//                int colSum = sumNegColumn(i);
+//                if (colSum == 0 && i != balance.length - 2) {
+//                    balance[balance.length - 2][i] = balance[balance.length - 2][i] - 1;
+//                    balance[balance.length - 1][i] = 1;
+//                    balance[i][balance.length - 2] = -balance[balance.length - 2][i];
+//                    balance[i][balance.length - 1] = -1;
+//                } else if (colSum == 0) {
+//                    casoLimiteTiOdioAAAA = true;
+//                } else {
+//                    balance[balance.length - 1][i] = colSum;
+//                    balance[i][balance.length - 1] = -colSum;
+//                }
+//            }
+//        } while (casoLimiteTiOdioAAAA);
+        for (int i = 0; i < balance.length - 1; i++) {
+
+            for (int j = i + 1; j < balance.length - 1; j++) {
+                balance[i][j] = random.nextInt(1, 5) * randomNegative();
+                balance[j][i] = -balance[i][j];
             }
 
-            for (int i = 0; i < balance.length - 1; i++) {
-                int colSum = sumNegColumn(i);
-                if (colSum == 0 && i != balance.length - 2) {
+            int colSum = sumNegColumn(i);
+            if (colSum == 0 && i != balance.length - 2) {
+                if (balance[balance.length - 2][i] != 1) {
                     balance[balance.length - 2][i] = balance[balance.length - 2][i] - 1;
                     balance[balance.length - 1][i] = 1;
                     balance[i][balance.length - 2] = -balance[balance.length - 2][i];
                     balance[i][balance.length - 1] = -1;
-                } else if (colSum == 0) {
-                    casoLimiteTiOdioAAAA = true;
                 } else {
-                    balance[balance.length - 1][i] = colSum;
-                    balance[i][balance.length - 1] = -colSum;
+                    balance[balance.length - 2][i] = balance[balance.length - 2][i] + 1;
+                    balance[balance.length - 1][i] = -1;
+                    balance[i][balance.length - 2] = -balance[balance.length - 2][i];
+                    balance[i][balance.length - 1] = 1;
                 }
+            } else if (colSum == 0) {
+                i = i - 2;
+            } else {
+                balance[balance.length - 1][i] = colSum;
+                balance[i][balance.length - 1] = -colSum;
             }
-        } while (casoLimiteTiOdioAAAA);
+        }
     }
 
     public static int sumNegColumn(int index) {
@@ -62,6 +116,7 @@ public class Universe {
         }
         return -tot;
     }
+
 
     public static void printBalance() {
         for (int i = 0; i < balance.length; i++) {
