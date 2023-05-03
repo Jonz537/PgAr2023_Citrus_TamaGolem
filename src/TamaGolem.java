@@ -9,7 +9,7 @@ public class TamaGolem {
     Iterator<Integer> gemIterator;
 
     public TamaGolem() {
-        this.healthPoint = Universe.getSupPower();
+        this.healthPoint = Universe.getMaxDamage();
         gemIterator = null;
     }
 
@@ -20,5 +20,17 @@ public class TamaGolem {
         }
 
         return gemIterator.next();
+    }
+
+    public int getHealthPoint() {
+        return this.healthPoint;
+    }
+
+    public void setHealthPoint(int healthPoint) {
+        this.healthPoint = healthPoint;
+    }
+
+    public String toString() {
+        return "Golem: " + healthPoint + " hp, " + currentGem() + " " + currentGem() + " " + currentGem();
     }
 }
