@@ -9,15 +9,14 @@ public class Universe {
             "Calabrium", "Mike Oxlong", "Lester Mo", "Nick Gah", "Gabe Itch",
 //             "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
     };
-//    static private int balance[][] = new int[elements.length][elements.length];
-    static private int balance[][] = new int[10000][10000];
-    static private Set<Integer> powerSet = new HashSet<>();
+    static private int balance[][] = new int[elements.length][elements.length];
+    static private int maxDamage = 0;
 
     public static void main(String[] args) {
         
             for (int i = 0; i < 1; i++) {
                 generateBalance();
-//                check();
+                printBalance();
             }
     }
 
@@ -54,37 +53,15 @@ public class Universe {
 
     public static void generateBalance() {
         Random random = new Random();
-//        boolean casoLimiteTiOdioAAAA = false;
-//        do {
-//            casoLimiteTiOdioAAAA = false;
-//            for (int i = 0; i < balance.length - 1; i++) {
-//                for (int j = 0; j < i; j++) {
-//                    balance[i][j] = random.nextInt(1, 5) * randomNegative();
-//                    balance[j][i] = -balance[i][j];
-//                    powerSet.add(Math.abs(balance[i][j]));
-//                }
-//            }
-//
-//            for (int i = 0; i < balance.length - 1; i++) {
-//                int colSum = sumNegColumn(i);
-//                if (colSum == 0 && i != balance.length - 2) {
-//                    balance[balance.length - 2][i] = balance[balance.length - 2][i] - 1;
-//                    balance[balance.length - 1][i] = 1;
-//                    balance[i][balance.length - 2] = -balance[balance.length - 2][i];
-//                    balance[i][balance.length - 1] = -1;
-//                } else if (colSum == 0) {
-//                    casoLimiteTiOdioAAAA = true;
-//                } else {
-//                    balance[balance.length - 1][i] = colSum;
-//                    balance[i][balance.length - 1] = -colSum;
-//                }
-//            }
-//        } while (casoLimiteTiOdioAAAA);
+
         for (int i = 0; i < balance.length - 1; i++) {
 
             for (int j = i + 1; j < balance.length - 1; j++) {
                 balance[i][j] = random.nextInt(1, 5) * randomNegative();
                 balance[j][i] = -balance[i][j];
+                if (Math.abs(balance[i][j]) > maxDamage) {
+                    maxDamage = Math.abs(balance[i][j]);
+                }
             }
 
             int colSum = sumNegColumn(i);
@@ -148,8 +125,8 @@ public class Universe {
         System.out.print("+");
     }
 
-    public static int getSupPower() {
-        return 0;
+    public static int getMaxDamage() {
+        return maxDamage;
     }
 
 // damage = 0 --> equal gem
