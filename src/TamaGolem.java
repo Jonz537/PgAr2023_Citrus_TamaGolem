@@ -11,7 +11,7 @@ public class TamaGolem {
     private Iterator<Integer> gemIterator;
 
     /**
-     * Create a tamaGolem with healthPoint the max damage in the equilibrium
+     * Create a tamaGolem with healthPoint of the max damage in the equilibrium
      */
     public TamaGolem() {
         this.healthPoint = Universe.getMaxDamage();
@@ -36,7 +36,7 @@ public class TamaGolem {
     }
 
     /**
-     *
+     * add gems chosen by the player to his tamagolem
      * @param index gem index
      * @param gemType gem type to add in the golem
      */

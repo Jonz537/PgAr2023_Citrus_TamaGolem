@@ -18,6 +18,6 @@ public class Main {
                 case -1 -> exit = false;
             }
         }
-        System.out.println("Too bad!");
+        System.out.println("Too bad my man try again!");
     }
 }

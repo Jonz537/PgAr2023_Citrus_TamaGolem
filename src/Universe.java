@@ -23,6 +23,9 @@ public class Universe {
         return maxDamage;
     }
 
+    /**
+     * random generation of the equilibrium for each game
+     */
     public static void generateEquilibrium() {
         Random random = new Random();
 
@@ -70,6 +73,10 @@ public class Universe {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static int randomNegative() {
         Random random = new Random();
         if (random.nextInt(0, 2) % 2 == 0) {
@@ -79,6 +86,11 @@ public class Universe {
         return -1;
     }
 
+    /**
+     *
+     * @param index
+     * @return
+     */
     public static int sumNegColumn(int index) {
         int tot = 0;
         for (int i = 0; i < equilibrium.length - 1; i++) {
@@ -87,6 +99,12 @@ public class Universe {
         return -tot;
     }
 
+    /**
+     * calculation of the damage based on the given gems
+     * @param golem1 gem
+     * @param golem2 gem
+     * @return damage inflicted
+     */
     public static int calcDamage(TamaGolem golem1, TamaGolem golem2) {
         // damage = 0 --> equal gem
         // damage < 0 --> second better
@@ -101,6 +119,9 @@ public class Universe {
         }
     }
 
+    /**
+     * ligma balls wanted to do an efficient algorithm and check if worked
+     */
     public static void check() {
         int counter = 0, sum = 0;
         for (int i = 0; i < equilibrium.length; i++) {
@@ -122,6 +143,9 @@ public class Universe {
         }
     }
 
+    /**
+     * print equilibrium with a table where is printed for each element the damage inflicted and received
+     */
     public static void printEquilibriumTable() {
         for (int i = 0; i < equilibrium.length; i++) {
             for (int j = 0; j < equilibrium.length * 5 + 14; j++) {
@@ -148,6 +172,9 @@ public class Universe {
         System.out.print("+");
     }
 
+    /**
+     * print equilibrium with a list where each element have only the damage inflicted to other's elements
+     */
     public static void printEquilibriumList() {
         for (int i = 0; i < equilibrium.length; i++) {
             System.out.println(elements.get(i));

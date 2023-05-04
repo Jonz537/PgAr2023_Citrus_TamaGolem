@@ -15,6 +15,10 @@ public class Game {
         initializeHashMap();
     }
 
+    /**
+     * first and second step which generate the equilibrium and start the fight
+     * @return the winner of the fight
+     */
     public int fight() {
         Universe.generateEquilibrium();
 
@@ -32,24 +36,29 @@ public class Game {
             if (damage < 0) {
                 player1.getTamaGolem().receiveDamage(damage);
                 System.out.println(player2.getName() + "'s tamagolem inflicted " + (-damage) + " damage to the " + player1.getName() + "'s tamagolem");
+                System.out.println(player1.getName() + " your tamagolem has " + player1.getTamaGolem().getHealthPoint() + " hp left");
             } else if (damage > 0) {
                 player2.getTamaGolem().receiveDamage(damage);
                 System.out.println(player1.getName() + "'s tamagolem inflicted " + damage + " damage to the " + player2.getName() + "'s tamagolem");
+                System.out.println(player2.getName() + " your tamagolem has " + player2.getTamaGolem().getHealthPoint() + " hp left");
             }
 
             if (player1.getTamaGolem().getHealthPoint() <= 0) {
-                System.out.println(player1.getName() + "'s tamagolem is dead " + player1.getNumberGolem());
+                System.out.println(player1.getName() + "'s tamagolem is dead (tamagolem's left " + (player1.getNumberGolem() - 1) + ")");
+
+                player1.decreaseGolem();
 
                 if(player1.getNumberGolem() > 0) {
                     summon(player1);
-                    player1.decreaseGolem();
                 }
+
             } else if (player2.getTamaGolem().getHealthPoint() <= 0) {
-                System.out.println(player2.getName() + "'s tamagolem is dead " + player2.getNumberGolem());
+                System.out.println(player2.getName() + "'s tamagolem is dead (tamagolem's left " + (player2.getNumberGolem() - 1) + ")");
+
+                player2.decreaseGolem();
 
                 if(player2.getNumberGolem() > 0) {
                     summon(player2);
-                    player2.decreaseGolem();
                 }
             }
         }
@@ -63,6 +72,9 @@ public class Game {
         return 0;
     }
 
+    /**
+     * final step where is declared the winner
+     */
     public void finale() {
 
         int winner = fight();
@@ -81,8 +93,8 @@ public class Game {
     }
 
     /**
-     *
-     * @param player
+     * summon a new tamagolem
+     * @param player to assign the tamagolem
      */
     private void summon(Player player) {
         TamaGolem tamaGolem = new TamaGolem();

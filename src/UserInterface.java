@@ -8,6 +8,10 @@ public class UserInterface {
 //    private static MenuManager choseGems = new MenuManager("Choose your gem", Universe.elements.toArray(String[]::new));
             //("Choose your gem");
 
+    /**
+     * start a new game
+     * @param game new match to play with a different equilibrium
+     */
     public static void enterPlayersData(Game game) {
 
         Player first, second;
@@ -23,6 +27,11 @@ public class UserInterface {
 //        return choseGems.chooseStringNoExit();
 //    }
 
+    /**
+     * menu with the gems available to choose
+     * @param choices available for each element
+     * @return the chosen gem
+     */
     public static String menuChooseGem(HashMap<String, Integer> choices) {
 
         System.out.println("\nChoose gem:");
