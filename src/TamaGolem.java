@@ -64,13 +64,13 @@ public class TamaGolem {
     public String toString() {
         StringBuilder string = new StringBuilder("Golem ");
 
-        string.append(healthPoint).append(" hp, ");
-
         for (int i = 0; i < GEMS_PER_GOLEM; i++) {
             string.append(Universe.elements.get(currentGem()));
-
             if(i < GEMS_PER_GOLEM - 1){
                 string.append(", ");
+            }
+            if (i == 0) {
+                string.append("\n");
             }
         }
 
