@@ -5,19 +5,13 @@ import java.util.Random;
 
 public class Universe {
 
-    final static public ArrayList<String> elements = new ArrayList<>(List.of("Calabrium", "Mike Oxlong", "Mo Lester", "Nick Gah", "Gabe Itch"
-//            "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
+    final static public ArrayList<String> elements = new ArrayList<>(List.of(
+            "Calabrium", "Mike Oxlong", "Mo Lester", "Nick Gah", "Gabe Itch",
+            "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
     ));
 
-    static private int equilibrium[][] = new int[elements.size()][elements.size()]; //SANENESS BALLAST EQUIPOISE
+    static private int equilibrium[][] = new int[elements.size()][elements.size()];
     static private int maxDamage = 0;
-
-    public static void main(String[] args) {
-        generateEquilibrium();
-        printEquilibriumTable();
-        System.out.println();
-        printEquilibriumList();
-    }
 
     public static int getMaxDamage() {
         return maxDamage;
@@ -74,7 +68,6 @@ public class Universe {
     }
 
     /**
-     *
      * @return
      */
     public static int randomNegative() {
@@ -87,7 +80,6 @@ public class Universe {
     }
 
     /**
-     *
      * @param index
      * @return
      */

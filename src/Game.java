@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class Game {
 
@@ -19,33 +20,36 @@ public class Game {
      * first and second step which generate the equilibrium and start the fight
      * @return the winner of the fight
      */
-    public int fight() {
+    public void fight() {
         Universe.generateEquilibrium();
 
         summon(player1);
         summon(player2);
-
-        System.out.println(player1.getName() + " " + player1.getTamaGolem().toString());
-        System.out.println(player2.getName() + " " + player2.getTamaGolem().toString());
 
         while (player1.getNumberGolem() > 0 && player2.getNumberGolem() > 0) {
             //System.out.println("N golem " + player1.getName() + ": " + player1.getNumberGolem() + " \n N golem " + player2.getName() +": " + player2.getNumberGolem());
 
             int damage = Universe.calcDamage(player1.getTamaGolem(), player2.getTamaGolem());
 
+            System.out.println(player1.getName() + " " + player1.getTamaGolem().toString());
+            System.out.println(player2.getName() + " " + player2.getTamaGolem().toString());
+            System.out.println();
+
             if (damage < 0) {
                 player1.getTamaGolem().receiveDamage(damage);
                 System.out.println(player2.getName() + "'s tamagolem inflicted " + (-damage) + " damage to the " + player1.getName() + "'s tamagolem");
                 System.out.println(player1.getName() + " your tamagolem has " + player1.getTamaGolem().getHealthPoint() + " hp left");
+                System.out.println();
             } else if (damage > 0) {
                 player2.getTamaGolem().receiveDamage(damage);
                 System.out.println(player1.getName() + "'s tamagolem inflicted " + damage + " damage to the " + player2.getName() + "'s tamagolem");
                 System.out.println(player2.getName() + " your tamagolem has " + player2.getTamaGolem().getHealthPoint() + " hp left");
+                System.out.println();
             }
 
             if (player1.getTamaGolem().getHealthPoint() <= 0) {
                 System.out.println(player1.getName() + "'s tamagolem is dead (tamagolem's left " + (player1.getNumberGolem() - 1) + ")");
-
+                System.out.println();
                 player1.decreaseGolem();
 
                 if(player1.getNumberGolem() > 0) {
@@ -61,31 +65,36 @@ public class Game {
                     summon(player2);
                 }
             }
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         if (player1.getNumberGolem() == 0) {
-            return 1;
+            finale(1);
         } else if (player2.getNumberGolem() == 0){
-            return 2;
+            finale(2);
         }
-
-        return 0;
     }
 
     /**
-     * final step where is declared the winner
+     * end of the game where is declared the winner
      */
-    public void finale() {
-
-        int winner = fight();
-
+    public void finale(int winner) {
         if (winner == 1) {
             System.out.println(player2.getName() + " wins");
         } else if (winner == 2) {
             System.out.println(player1.getName() + " wins");
         }
+
+        UserInterface.chooseBalanceVisualization();
     }
 
+    /**
+     * initialize elements HashMap, "name of the element": "number of this element's gem"
+     */
     private void initializeHashMap() {
         for (int i = 0; i < NUM_ELEMENT; i++) {
             gems.put(Universe.elements.get(i), TOT_GEM_BAG/NUM_ELEMENT);
@@ -94,7 +103,7 @@ public class Game {
 
     /**
      * summon a new tamagolem
-     * @param player to assign the tamagolem
+     * @param player to assign the tamaolem
      */
     private void summon(Player player) {
         TamaGolem tamaGolem = new TamaGolem();
@@ -104,15 +113,16 @@ public class Game {
             String gemKey;
 
             do {
-                gemKey = UserInterface.menuChooseGem(gems);
+                gemKey = UserInterface.menuChooseGem(gems, player);
 
                 if(gems.get(gemKey) <= 0) {
-                    System.out.println("There are no more gems of " + gemKey);
+                    System.out.println("There are no more gems of \"" + gemKey + "\"");
                 }
             } while(gems.get(gemKey) <= 0);
 
             tamaGolem.addGemToGolem(i, Universe.elements.indexOf(gemKey));
             gems.put(gemKey, gems.get(gemKey) - 1);
+
         }
 
         player.setTamaGolem(tamaGolem);

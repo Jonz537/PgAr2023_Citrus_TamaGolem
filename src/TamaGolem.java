@@ -3,9 +3,7 @@ import java.util.LinkedList;
 
 public class TamaGolem {
 
-
     public static int GEMS_PER_GOLEM = (int) Math.ceil((Game.NUM_ELEMENT + 1) / 3.0) + 1;
-
     private int healthPoint;
     private LinkedList<Integer> gems = new LinkedList<>();
     private Iterator<Integer> gemIterator;
@@ -41,14 +39,14 @@ public class TamaGolem {
      * @param gemType gem type to add in the golem
      */
     public void addGemToGolem(int index, int gemType) {
-        gems.add(gemType);
+        gems.add(index, gemType);
     }
 
     /**
      * @return tamagolem health points
      */
     public int getHealthPoint() {
-        return this.healthPoint;
+        return Math.max(healthPoint, 0);
     }
 
     /**
@@ -59,7 +57,23 @@ public class TamaGolem {
         healthPoint -= Math.abs(damageHealthPoints);
     }
 
+    /**
+     * @return a String with important tamagolem's stats
+     */
+    // TODO fix this
     public String toString() {
-        return "Golem: " + healthPoint + " hp, " + Universe.elements.get(currentGem()) + ", " + Universe.elements.get(currentGem()) + ", " + Universe.elements.get(currentGem());
+        StringBuilder string = new StringBuilder("Golem ");
+
+        string.append(healthPoint).append(" hp, ");
+
+        for (int i = 0; i < GEMS_PER_GOLEM; i++) {
+            string.append(Universe.elements.get(currentGem()));
+
+            if(i < GEMS_PER_GOLEM - 1){
+                string.append(", ");
+            }
+        }
+
+        return string.toString();
     }
 }
