@@ -9,6 +9,7 @@ public class UserInterface {
     private static MenuManager displayMenu = new MenuManager("Choose how you want to display the equilibrium", new String[]{
             "Table", "List"
     });
+
     /**
      * start a new game
      * @param game new match to play with a different equilibrium
@@ -39,6 +40,9 @@ public class UserInterface {
         return Universe.elements.get(InputInterface.readInt("Choice: ", 1, choices.size()) - 1);
     }
 
+    /**
+     * give the user the chooise between table and list type of visualization for the equilibrium
+     */
     public static void chooseBalanceVisualization() {
 
         switch (displayMenu.chooseNoExit()) {

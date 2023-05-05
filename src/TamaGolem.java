@@ -16,6 +16,10 @@ public class TamaGolem {
         gemIterator = null;
     }
 
+    public LinkedList<Integer> getGems() {
+        return gems;
+    }
+
     /**
      * cycle the tamaGolem's gems
      * @return current gem
@@ -60,20 +64,45 @@ public class TamaGolem {
     /**
      * @return a String with important tamagolem's stats
      */
-    // TODO fix this
     public String toString() {
         StringBuilder string = new StringBuilder("Golem ");
+        string.append(healthPoint).append(" hp ");
 
         for (int i = 0; i < GEMS_PER_GOLEM; i++) {
             string.append(Universe.elements.get(currentGem()));
+
             if(i < GEMS_PER_GOLEM - 1){
                 string.append(", ");
             }
+
             if (i == 0) {
-                string.append("\n");
+                string.append("\t");
             }
+
         }
 
         return string.toString();
+    }
+
+    public boolean compareGems(TamaGolem otherGolem) {
+        Iterator<Integer> thisIterator;
+        Iterator<Integer> otherIterator;
+        try {
+             thisIterator = gems.iterator();
+             otherIterator = otherGolem.getGems().iterator();
+        } catch (NullPointerException e) {
+            return false;
+        }
+
+        if (gems.size() != otherGolem.getGems().size()) {
+            return false;
+        }
+
+        while (thisIterator.hasNext() && otherIterator.hasNext()) {
+            if (!(thisIterator.next().intValue() == otherIterator.next().intValue())) {
+                return false;
+            }
+        }
+        return true;
     }
 }

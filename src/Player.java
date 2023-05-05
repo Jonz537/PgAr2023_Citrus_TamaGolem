@@ -4,7 +4,9 @@ public class Player {
 
     private String name;
     private int numberGolem = Game.INITIAL_NUM_GOLEM;
-    private TamaGolem tamaGolem = new TamaGolem();
+    private TamaGolem tamaGolem = null;
+
+
 
     public Player(String name) {
         this.name = name;

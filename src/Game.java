@@ -18,7 +18,7 @@ public class Game {
 
     /**
      * first and second step which generate the equilibrium and start the fight
-     * @return the winner of the fight
+     * print the winner of the fight
      */
     public void fight() {
         Universe.generateEquilibrium();
@@ -103,28 +103,38 @@ public class Game {
 
     /**
      * summon a new tamagolem
-     * @param player to assign the tamaolem
+     * @param player to assign the tamagolem
      */
     private void summon(Player player) {
-        TamaGolem tamaGolem = new TamaGolem();
+        HashMap<String, Integer> saveGems = new HashMap<>(gems);
 
-        for (int i = 0; i < TamaGolem.GEMS_PER_GOLEM; i++) {
+        do {
+            TamaGolem tamaGolem = new TamaGolem();
 
-            String gemKey;
+            for (int i = 0; i < TamaGolem.GEMS_PER_GOLEM; i++) {
 
-            do {
-                gemKey = UserInterface.menuChooseGem(gems, player);
+                String gemKey;
 
-                if(gems.get(gemKey) <= 0) {
-                    System.out.println("There are no more gems of \"" + gemKey + "\"");
-                }
-            } while(gems.get(gemKey) <= 0);
+                do {
+                    gemKey = UserInterface.menuChooseGem(gems, player);
 
-            tamaGolem.addGemToGolem(i, Universe.elements.indexOf(gemKey));
-            gems.put(gemKey, gems.get(gemKey) - 1);
+                    if(gems.get(gemKey) <= 0) {
+                        System.out.println("There are no more gems of \"" + gemKey + "\", you Bafoon!");
+                    }
+                } while(gems.get(gemKey) <= 0);
 
-        }
+                tamaGolem.addGemToGolem(i, Universe.elements.indexOf(gemKey));
+                gems.put(gemKey, gems.get(gemKey) - 1);
+            }
+            player.setTamaGolem(tamaGolem);
+            if (sameGems()) {
+                System.out.println("You choose the same gems as the other player, Fool!");
+                gems = new HashMap<>(saveGems);
+            }
+        } while (sameGems());
+    }
 
-        player.setTamaGolem(tamaGolem);
+    private boolean sameGems() {
+        return player1.getTamaGolem().compareGems(player2.getTamaGolem());
     }
 }

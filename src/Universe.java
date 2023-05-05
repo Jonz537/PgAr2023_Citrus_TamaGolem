@@ -6,8 +6,8 @@ import java.util.Random;
 public class Universe {
 
     final static public ArrayList<String> elements = new ArrayList<>(List.of(
-            "Calabrium", "Mike Oxlong", "Mo Lester", "Nick Gah", "Gabe Itch",
-            "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
+            "Calabrium", "Mike Oxlong", "Mo Lester", "Nick Gah", "Gabe Itch"
+//            , "Ped O' Phil", "Hugh Janus", "Bo Nerr", "Ray Pist", "Nick Her"
     ));
 
     static private int equilibrium[][] = new int[elements.size()][elements.size()];
@@ -68,7 +68,7 @@ public class Universe {
     }
 
     /**
-     * @return
+     * @return a pseudo random number between 1 and -1
      */
     public static int randomNegative() {
         Random random = new Random();
@@ -80,8 +80,8 @@ public class Universe {
     }
 
     /**
-     * @param index
-     * @return
+     * @param index index of the column you want the sum of
+     * @return the sum of the column said index
      */
     public static int sumNegColumn(int index) {
         int tot = 0;
