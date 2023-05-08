@@ -134,6 +134,10 @@ public class Game {
         } while (sameGems());
     }
 
+    /**
+     * check if player1's golem has the same gems as the second's
+     * @return true if the golems have same gems in same order
+     */
     private boolean sameGems() {
         return player1.getTamaGolem().compareGems(player2.getTamaGolem());
     }

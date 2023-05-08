@@ -84,6 +84,11 @@ public class TamaGolem {
         return string.toString();
     }
 
+    /**
+     * check if both linked list are equal
+     * @param otherGolem the golem you want compare the gems with
+     * @return true if all gems are equals in the same order
+     */
     public boolean compareGems(TamaGolem otherGolem) {
         Iterator<Integer> thisIterator;
         Iterator<Integer> otherIterator;
