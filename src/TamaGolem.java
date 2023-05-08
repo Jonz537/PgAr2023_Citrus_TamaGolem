@@ -92,17 +92,21 @@ public class TamaGolem {
     public boolean compareGems(TamaGolem otherGolem) {
         Iterator<Integer> thisIterator;
         Iterator<Integer> otherIterator;
+
+        // seconda golem null
         try {
-             thisIterator = gems.iterator();
-             otherIterator = otherGolem.getGems().iterator();
+            thisIterator = gems.iterator();
+            otherIterator = otherGolem.getGems().iterator();
         } catch (NullPointerException e) {
             return false;
         }
 
+        // different size gems, this should never happen
         if (gems.size() != otherGolem.getGems().size()) {
             return false;
         }
 
+        // check each gem one by one
         while (thisIterator.hasNext() && otherIterator.hasNext()) {
             if (!(thisIterator.next().intValue() == otherIterator.next().intValue())) {
                 return false;

@@ -9,6 +9,7 @@ public class Main {
         Game game = null;
         boolean exit = true;
 
+        // game menu
         while (exit) {
             switch (menuManager.choose()) {
                 case 0 -> UserInterface.enterPlayersData(game);

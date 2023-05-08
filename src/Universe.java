@@ -25,25 +25,27 @@ public class Universe {
 
         for (int i = 0; i < equilibrium.length - 1; i++) {
 
+            // generate random number row per row
             for (int j = i + 1; j < equilibrium.length - 1; j++) {
 
-                // genera casuale riga per riga
                 equilibrium[i][j] = random.nextInt(1, 5) * randomNegative();
                 equilibrium[j][i] = -equilibrium[i][j];
 
-                // controllo valore di danno massimo per la vita del golem
+                // save max damage for golem HP
                 if (Math.abs(equilibrium[i][j]) > maxDamage) {
                     maxDamage = Math.abs(equilibrium[i][j]);
                 }
             }
 
-            // calcola la somma della colonna per generare l'ultimo numero
+            // calculate Column sum to generate last number
             int colSum = sumNegColumn(i);
 
+            // save max damage
             if (colSum > maxDamage) {
                 maxDamage = colSum;
             }
 
+            // check if last digit is zero and edit the matrix accordingly
             if (colSum == 0 && i != equilibrium.length - 2) {
                 if (equilibrium[equilibrium.length - 2][i] != 1) {
                     equilibrium[equilibrium.length - 2][i] = equilibrium[equilibrium.length - 2][i] - 1;
@@ -57,8 +59,8 @@ public class Universe {
                     equilibrium[i][equilibrium.length - 1] = 1;
                 }
             } else if (colSum == 0) {
-                // caso particolare della modifica della penultima colonna, si rigenera il numero per
-                // non generare una reazione a cascata
+                // rare case: if colSum is zero and cannot modify the number because it will lead to a
+                // cascade editing in the matrix, so we regenerate another number (only the last one)
                 i = i - 2;
             } else {
                 equilibrium[equilibrium.length - 1][i] = colSum;
@@ -112,7 +114,7 @@ public class Universe {
     }
 
     /**
-     * ligma balls wanted to do an efficient algorithm and check if worked
+     * test algorithm for generating equilibrium
      */
     public static void check() {
         int counter = 0, sum = 0;

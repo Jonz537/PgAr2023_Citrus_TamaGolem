@@ -36,17 +36,20 @@ public class Game {
             System.out.println();
 
             if (damage < 0) {
+                // player 1 got damaged
                 player1.getTamaGolem().receiveDamage(damage);
                 System.out.println(player2.getName() + "'s tamagolem inflicted " + (-damage) + " damage to the " + player1.getName() + "'s tamagolem");
                 System.out.println(player1.getName() + " your tamagolem has " + player1.getTamaGolem().getHealthPoint() + " hp left");
                 System.out.println();
             } else if (damage > 0) {
+                // player 2 got damaged
                 player2.getTamaGolem().receiveDamage(damage);
                 System.out.println(player1.getName() + "'s tamagolem inflicted " + damage + " damage to the " + player2.getName() + "'s tamagolem");
                 System.out.println(player2.getName() + " your tamagolem has " + player2.getTamaGolem().getHealthPoint() + " hp left");
                 System.out.println();
             }
 
+            // tamagolem death
             if (player1.getTamaGolem().getHealthPoint() <= 0) {
                 System.out.println(player1.getName() + "'s tamagolem is dead (tamagolem's left " + (player1.getNumberGolem() - 1) + ")");
                 System.out.println();
@@ -65,6 +68,8 @@ public class Game {
                     summon(player2);
                 }
             }
+
+            // waiting
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
@@ -72,6 +77,7 @@ public class Game {
             }
         }
 
+        // declare winner
         if (player1.getNumberGolem() == 0) {
             finale(1);
         } else if (player2.getNumberGolem() == 0){
