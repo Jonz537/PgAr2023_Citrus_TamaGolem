@@ -41,7 +41,7 @@ public class Universe {
             int colSum = sumNegColumn(i);
 
             // save max damage
-            if (colSum > maxDamage) {
+            if (Math.abs(colSum) > maxDamage) {
                 maxDamage = colSum;
             }
 
